@@ -1,0 +1,19 @@
+name:                text-csv
+version:             0.1.0.0
+synopsis:            CSV Parsing
+description:         A module for parsing CSV either from a String or a file.
+homepage:            http://stuartkurtz.github.io/Text.CSV
+license:             BSD3
+license-file:        LICENSE
+copyright:			 © 2013, Stuart A. Kurtz
+author:              Stuart A. Kurtz
+maintainer:          stuart@cs.uchicago.edu
+stability:			 provisional
+bug-reports:		 mailto:stuart@cs.uchicago.edu
+category:            Text
+build-type:          Simple
+cabal-version:       >=1.8
+library
+  exposed-modules:     Text.CSV
+  build-depends:       base ==4.5.*
+  
