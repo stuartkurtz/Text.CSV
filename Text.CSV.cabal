@@ -1,5 +1,5 @@
 name:                text-csv
-version:             0.1.0.0
+version:             0.1.1.1
 synopsis:            CSV Parsing
 description:         A module for parsing CSV either from a String or a file.
 homepage:            http://stuartkurtz.github.io/Text.CSV
@@ -15,5 +15,5 @@ build-type:          Simple
 cabal-version:       >=1.8
 library
   exposed-modules:     Text.CSV
-  build-depends:       base ==4.5.*
+  build-depends:       base == 4.*
   

@@ -12,7 +12,8 @@
 
 module Text.CSV (
 	parseCSV,
-	readCSV
+	readCSV,
+	prune
 ) where
 
 import Data.Char
@@ -63,3 +64,14 @@ parseCSV  = parse csv where
 
 readCSV :: FilePath -> IO [[String]]
 readCSV = fmap parseCSV . readFile
+
+{- |
+  The 'prune' function is used to filter the values obtained by the application
+  of 'parseCSV' or 'readCSV', eliminating any records that consist of
+  a single field that consists only of white space.
+-}
+
+prune :: [[String]] -> [[String]]
+prune = filter nontrivial where
+	nontrivial [x] = any (not . isSpace) x
+	nontrivial _ = True
