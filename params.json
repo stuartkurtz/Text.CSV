@@ -1,0 +1,1 @@
+{"name":"Text.CSV","tagline":"CSV Parsing in Haskell","body":"# Text.CSV\r\n\r\nA Haskell module for parsing comma separated values (CSV) either from a String or a file.\r\n","google":"","note":"Don't delete this file! It's used internally to help with page regeneration."}
