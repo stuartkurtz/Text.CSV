@@ -1,14 +1,13 @@
------------------------------------------------------------------------------
--- |
--- Module      :  Text.CSV
--- Copyright   :  (c) 2013, Stuart A. Kurtz
--- License     :  BSD (3-Clause) (see ./LICENSE)
--- 
--- Maintainer  :  stuart@cs.uchicago.edu
--- Stability   :  provisional
---
--- This is a library for parsing comma separated values (CSV).
------------------------------------------------------------------------------
+{- |
+  Module      :  Text.CSV
+  Copyright   :  (c) 2013, Stuart A. Kurtz
+  License     :  BSD (3-Clause) (see ./LICENSE)
+  
+  Maintainer  :  stuart@cs.uchicago.edu
+  Stability   :  experimental
+ 
+  A library for parsing comma separated values (CSV).
+-}
 
 module Text.CSV (
 	parseCSV,
@@ -16,7 +15,9 @@ module Text.CSV (
 	prune
 ) where
 
+import Control.Monad
 import Data.Char
+import Data.List (intercalate)
 import Text.ParserCombinators.ReadP
 
 {-
@@ -27,10 +28,11 @@ import Text.ParserCombinators.ReadP
   in interpreting CSV, so we can't do that here.
 -}
 
+parse :: ReadP a -> String -> a
 parse p s = case [a | (a,"") <- readP_to_S p s] of
 	[x] -> x
-	[] -> error "no parse"
-	_  -> error "ambiguous parse"
+	[]  -> error "no parse"
+	_   -> error "ambiguous parse"
 
 {- |
   The 'parseCSV' function parses a 'String' containing comma separated
@@ -39,8 +41,8 @@ parse p s = case [a | (a,"") <- readP_to_S p s] of
   intended either as a record terminator, or as a record separator. The
   'parseCSV' function treats newlines as record separators, which allows
   it to successfully parse in either case, albeit with a spurious final
-  record consisting of a single, empty field, for CSV files in which
-  newline is a record terminator.
+  record consisting of a single, empty field, on a 'String' in which
+  newline was intended as a record terminator.
   
   Client code should be aware of the possibility (even likelihood) of
   encountering records that consist of a single, empty field.
@@ -48,12 +50,18 @@ parse p s = case [a | (a,"") <- readP_to_S p s] of
   
 parseCSV :: String -> [[String]]	
 parseCSV  = parse csv where
-	csv = sepBy record newline
-	record = sepBy1 field (char ',')
-	field = simpleField <++ quotedField
-	simpleField = munch (not . flip elem ",\"\n\r")
-	quotedField = between (char '"') (char '"') (munch (/= '"'))
-	newline = string "\n\r" <++ string "\n" <++ string "\r"
+	csv = record `sepBy1` newline
+	record = field `sepBy1` char ','
+	field = complete simpleField <++ complete quotedField
+	simpleField = munch (`notElem` ",\"\n\r")
+	quotedField = between (char '"') (char '"') (many nextChar)
+	nextChar = satisfy (/= '"') <++ fmap (const '"') (string "\"\"")
+	complete ma = do
+		result <- ma
+		peek <- look
+		guard $ null peek || head peek `elem` ",\r\n"
+		return result
+	newline = string "\n" <++ string "\n\r" <++ string "\r"
 
 {- |
   The 'readCSV' function parses a file containing comma separated values
@@ -67,8 +75,8 @@ readCSV = fmap parseCSV . readFile
 
 {- |
   The 'prune' function is used to filter the values obtained by the application
-  of 'parseCSV' or 'readCSV', eliminating any records that consist of
-  a single field that consists only of white space.
+  of 'parseCSV' or 'readCSV', eliminating any trivial records, i.e., records
+  that consist of a single field that consists only of white space.
 -}
 
 prune :: [[String]] -> [[String]]
