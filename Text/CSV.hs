@@ -17,7 +17,6 @@ module Text.CSV (
 
 import Control.Monad
 import Data.Char
-import Data.List (intercalate)
 import Text.ParserCombinators.ReadP
 
 {-
