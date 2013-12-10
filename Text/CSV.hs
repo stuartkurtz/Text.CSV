@@ -60,7 +60,7 @@ parseCSV  = parse csv where
 		peek <- look
 		guard $ null peek || head peek `elem` ",\r\n"
 		return result
-	newline = string "\n" <++ string "\n\r" <++ string "\r"
+	newline = string "\r\n" <++ string "\n" <++ string "\r"
 
 {- |
   The 'readCSV' function parses a file containing comma separated values
