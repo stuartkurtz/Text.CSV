@@ -148,4 +148,5 @@ showCSV = unlines . map (intercalate "," . map encodeCSVField)
   indicated file.
 -}
 
+writeCSV :: FilePath -> [[String]] -> IO ()
 writeCSV fname = writeFile fname . showCSV

@@ -1,5 +1,5 @@
 name:                text-csv
-version:             0.1.2.0
+version:             0.1.2.1
 synopsis:            CSV Parsing
 description:         A module for handling comma-separated values, either in Strings or files.
 homepage:            http://stuartkurtz.github.io/Text.CSV
