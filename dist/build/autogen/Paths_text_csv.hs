@@ -14,12 +14,12 @@ catchIO = Exception.catch
 
 
 version :: Version
-version = Version {versionBranch = [0,1,2,5], versionTags = []}
+version = Version {versionBranch = [0,1,2,6], versionTags = []}
 bindir, libdir, datadir, libexecdir, sysconfdir :: FilePath
 
 bindir     = "/Volumes/Home/stuart/Library/Haskell/bin"
-libdir     = "/Volumes/Home/stuart/Library/Haskell/ghc-7.8.3-x86_64/lib/text-csv-0.1.2.5"
-datadir    = "/Volumes/Home/stuart/Library/Haskell/share/ghc-7.8.3-x86_64/text-csv-0.1.2.5"
+libdir     = "/Volumes/Home/stuart/Library/Haskell/ghc-7.8.3-x86_64/lib/text-csv-0.1.2.6"
+datadir    = "/Volumes/Home/stuart/Library/Haskell/share/ghc-7.8.3-x86_64/text-csv-0.1.2.6"
 libexecdir = "/Volumes/Home/stuart/Library/Haskell/libexec"
 sysconfdir = "/Volumes/Home/stuart/Library/Haskell/etc"
 

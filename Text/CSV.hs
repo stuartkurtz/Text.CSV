@@ -120,7 +120,7 @@ prune = filter nontrivial where
 
 encodeCSVField :: String -> String
 encodeCSVField s
-    | any (`elem` ['\r','\n','"',',']) s = "\"" ++ csvQuote s ++ "\""
+    | any (`elem` "\r\n\",") s = "\"" ++ csvQuote s ++ "\""
     | otherwise = s
     where
         csvQuote = foldr quoteChar ""
