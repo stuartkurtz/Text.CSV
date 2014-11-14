@@ -26,15 +26,15 @@ import Data.List (intercalate)
 import Text.ParserCombinators.ReadP
 
 {-
-  The 'parse' function used here is a bit non-standard, in that it
+  The 'parseWith' function used here is a bit non-standard, in that it
   requires the parser to parse the entire string, rather than ignoring
   white-space at the beginning and end of the string, and so we don't
   export it. Unfortunately, ignoring whitespace creates an ambiguity
   in interpreting CSV, so we can't do that here.
 -}
 
-parse :: ReadP a -> String -> a
-parse p s = case [a | (a,"") <- readP_to_S p s] of
+parseWith :: ReadP a -> String -> a
+parseWith p s = case [a | (a,"") <- readP_to_S p s] of
 	[x] -> x
 	[]  -> error "no parse"
 	_   -> error "ambiguous parse"
@@ -77,7 +77,7 @@ readCSV = fmap parseCSV . readFile
 -} 
   
 parseRawCSV :: String -> [[String]]	
-parseRawCSV  = parse csv where
+parseRawCSV  = parseWith csv where
 	csv = record `sepBy1` newline
 	record = field `sepBy1` char ','
 	field = complete simpleField <++ complete quotedField
