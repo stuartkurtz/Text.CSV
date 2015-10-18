@@ -12,16 +12,15 @@ import Prelude
 catchIO :: IO a -> (Exception.IOException -> IO a) -> IO a
 catchIO = Exception.catch
 
-
 version :: Version
-version = Version {versionBranch = [0,1,2,6], versionTags = []}
+version = Version [0,1,2,6] []
 bindir, libdir, datadir, libexecdir, sysconfdir :: FilePath
 
-bindir     = "/Volumes/Home/stuart/Library/Haskell/bin"
-libdir     = "/Volumes/Home/stuart/Library/Haskell/ghc-7.8.3-x86_64/lib/text-csv-0.1.2.6"
-datadir    = "/Volumes/Home/stuart/Library/Haskell/share/ghc-7.8.3-x86_64/text-csv-0.1.2.6"
-libexecdir = "/Volumes/Home/stuart/Library/Haskell/libexec"
-sysconfdir = "/Volumes/Home/stuart/Library/Haskell/etc"
+bindir     = "/Users/stuart/Library/Haskell/bin"
+libdir     = "/Users/stuart/Library/Haskell/ghc-7.10.2-x86_64/lib/text-csv-0.1.2.6"
+datadir    = "/Users/stuart/Library/Haskell/share/ghc-7.10.2-x86_64/text-csv-0.1.2.6"
+libexecdir = "/Users/stuart/Library/Haskell/libexec"
+sysconfdir = "/Users/stuart/Library/Haskell/etc"
 
 getBinDir, getLibDir, getDataDir, getLibexecDir, getSysconfDir :: IO FilePath
 getBinDir = catchIO (getEnv "text_csv_bindir") (\_ -> return bindir)

@@ -10,14 +10,14 @@
 -}
 
 module Text.CSV (
-	parseCSV,
-	readCSV,
-	parseRawCSV,
-	readRawCSV,
-	prune,
-	encodeCSVField,
-	showCSV,
-	writeCSV
+    parseCSV,
+    readCSV,
+    parseRawCSV,
+    readRawCSV,
+    prune,
+    encodeCSVField,
+    showCSV,
+    writeCSV
 ) where
 
 import Control.Monad
@@ -35,9 +35,9 @@ import Text.ParserCombinators.ReadP
 
 parseWith :: ReadP a -> String -> a
 parseWith p s = case [a | (a,"") <- readP_to_S p s] of
-	[x] -> x
-	[]  -> error "no parse"
-	_   -> error "ambiguous parse"
+    [x] -> x
+    []  -> error "no parse"
+    _   -> error "ambiguous parse"
 
 {- |
   The 'parseCSV' function parses a 'String' containing comma separated
@@ -76,20 +76,20 @@ readCSV = fmap parseCSV . readFile
   encountering trivial records.
 -} 
   
-parseRawCSV :: String -> [[String]]	
+parseRawCSV :: String -> [[String]] 
 parseRawCSV  = parseWith csv where
-	csv = record `sepBy1` newline
-	record = field `sepBy1` char ','
-	field = complete simpleField <++ complete quotedField
-	simpleField = munch (`notElem` ",\"\n\r")
-	quotedField = between (char '"') (char '"') (many nextChar)
-	nextChar = satisfy (/= '"') <++ fmap (const '"') (string "\"\"")
-	complete ma = do
-		result <- ma
-		peek <- look
-		guard $ null peek || head peek `elem` ",\r\n"
-		return result
-	newline = string "\r\n" <++ string "\n" <++ string "\r"
+    csv = record `sepBy1` newline
+    record = field `sepBy1` char ','
+    field = complete simpleField <++ complete quotedField
+    simpleField = munch (`notElem` ",\"\n\r")
+    quotedField = between (char '"') (char '"') (many nextChar)
+    nextChar = satisfy (/= '"') <++ fmap (const '"') (string "\"\"")
+    complete ma = do
+        result <- ma
+        peek <- look
+        guard $ null peek || head peek `elem` ",\r\n"
+        return result
+    newline = string "\r\n" <++ string "\n" <++ string "\r"
 
 {- |
   The 'readRawCSV' function parses a file containing comma separated values
@@ -109,8 +109,8 @@ readRawCSV = fmap parseRawCSV . readFile
 
 prune :: [[String]] -> [[String]]
 prune = filter nontrivial where
-	nontrivial [x] = any (not . isSpace) x
-	nontrivial _ = True
+    nontrivial [x] = any (not . isSpace) x
+    nontrivial _ = True
 
 {- |
   The 'encodeCSVField' function will quote a 'String' that contains carriage
