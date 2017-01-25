@@ -124,8 +124,8 @@ encodeCSVField s
     | otherwise = s
     where
         csvQuote = foldr quoteChar ""
-        quoteChar '"' s = "\"\"" ++ s
-        quoteChar c s = c:s
+        quoteChar '"' cs = "\"\"" ++ cs
+        quoteChar c cs = c:cs
 
 {- |
   The 'showCSV' function converts a [['String']] to a 'String', following the
