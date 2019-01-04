@@ -1,1 +1,4 @@
 dist
+dist-newstyle
+.DS_Store
+cabal.project.local
