@@ -1,3 +1,8 @@
 dist
 dist-newstyle
+<<<<<<< HEAD
 .ghc.*
+=======
+.DS_Store
+cabal.project.local
+>>>>>>> 8cfec2747794a9aa8df56920fe6b3433fccf02f8

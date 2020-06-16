@@ -3,16 +3,17 @@ cabal-version:       2.4
 --   For further documentation, see http://haskell.org/cabal/users-guide/
 
 name:                text-csv
-version:             0.1.2.7
+version:             0.1.2.8
 synopsis:            CSV Parsing
 description:         A module for handling comma-separated values, either in Strings or files.
 homepage:            http://stuartkurtz.github.io/Text.CSV
-bug-reports:         mailto:stuart@cs.uchicago.edu
 license:             BSD-3-Clause
 license-file:        LICENSE
 author:              Stuart A. Kurtz
 maintainer:          stuart@cs.uchicago.edu
 copyright:			 © 2013-2020, Stuart A. Kurtz
+bug-reports:		 mailto:stuart@cs.uchicago.edu
+stability:			 provisional
 category:            Text
 extra-source-files:  CHANGELOG.md, README.md
 
